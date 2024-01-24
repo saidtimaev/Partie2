@@ -36,16 +36,17 @@ $elements =
 
 
 
-
+// Fonction qui va créer un formulaire à partir d'élements récupérés d'un tableau
 function afficherFormulaire($elements)
 {
 
     $result = "<form action='' method='get' class='form-example'>";
 
+    // Pour chaque élément du tableau
     foreach ($elements as $nomFormulaire)
     {
 
-        //
+        //Si le tableau contient un tableau
         if (is_array($nomFormulaire))
         {
             $result .= '<p>Formations :';
@@ -55,16 +56,16 @@ function afficherFormulaire($elements)
                 
 
                 <input type="checkbox" id="scales" name="'.$intitule.'"'.$formation.'/>
-                <label for="'.$intitule.'">'.$intitule.'</label><br>';
+                <label for="'.$intitule.'">'.$intitule.'</label><br><br>';
             }
         }
       
         else
         {
             $result .= "<div class='form-example'>
-                    <label for='".$nomFormulaire."'>".ucfirst($nomFormulaire)."</label><br>
+                    <label for='".$nomFormulaire."'>".ucfirst($nomFormulaire).":"."</label><br>
                      <input type='text' name='".$nomFormulaire."' id='".$nomFormulaire."' required />
-                    </div>";
+                    </div><br>";
         }
 
     }
