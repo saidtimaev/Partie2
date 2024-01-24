@@ -30,6 +30,7 @@ function formaterDateFr($date)
     $dateFormatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
     
 
+    // Appelle la méthode format de la classe IntlDateFormatter avec comme argument un objet DateTime sur un objet de la classe IntlDateFormatter
     return $dateFormatter->format($dateTime);
 
 
