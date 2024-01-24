@@ -13,6 +13,7 @@ genererCheckbox($elements);<br>
 </p> 
 
 
+
 <?php
 
 $elements = 
