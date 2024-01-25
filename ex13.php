@@ -19,100 +19,159 @@ suivants :<br>
 
 <?php
 
+// On crée la classe voiture
 class Voiture
 {
+    //On définit les propriétés de la classe
     private string $_marque;
     private string $_modele;
     private int $_nbPortes;
-    private int $_vitesseActuelle= 0;
+    private int $_vitesseActuelle= 0; // On met la vitesse de base par défaut à 0
     private int $_numeroVehicule;
+    private bool $_estDemarre = false; // On dit que la voiture est stoppée par défaut
 
+    //On met en place un compteur du nombre de véhicules qui est à 1 par défaut
     private static int $_nbVehicules = 1;
 
+    //Fonction construct
     function __construct(string $marque, string $modele, int $nbPortes, ) 
     {
         $this->_marque = $marque;
         $this->_modele = $modele;
         $this->_nbPortes = $nbPortes;
+    
+        //Le numéro du véhicule sera attribué au compteur du nombre de véhicules à sa création
         $this->_numeroVehicule = self::$_nbVehicules;
-        self::$_nbVehicules++;
+        self::$_nbVehicules++; // Le compteur s'auto incrémente
 
     }
 
+    // La fonction qui permettra va faire passer le statut de la voiture à demarré (true)
+    // Affiche aussi que la voiture a demarré
     public function demarrer()
     {
-        
+        echo "Le véhicule ".$this->_marque." ".$this->_modele." démarre<br>";
+        $this->_estDemarre = true;
     } 
 
-    public function acceler()
+    //Fonction qui va nous notifier si on veut accéler alors que la voiture est à l'arrêt (false)
+    //ou qui va accélerer si la voiture est allumée
+    public function acceler(int $acceleration): void
     {
+        // Early exit
+        if ($this->_estDemarre == false)
+        {
+            echo "Le véhicule ".$this->_marque." ".$this->_modele." veut accélérer de ".$acceleration."<br>";
+            echo "Pour accélérer il faut démarrer le véhicule ".$this->_marque." ".$this->_modele." !<br>"; 
+
+            // Le return permet de sortir de la fonction
+            return ;
+        }
+
+        
+        // Par défaut
+        echo "Le véhicule ".$this->_marque." ".$this->_modele." accélère de ".$acceleration."km / h<br>";
+        $this->_vitesseActuelle += $acceleration;
         
     } 
 
-    public function stopper()
+    // Fonction qui passer le statut de la voiture à arrêté et mettre sa vitesse à 0
+    public function stopper(): void
     {
-        
+        echo "Le véhicule ".$this->_marque." ".$this->_modele." est stoppé<br>";
+        $this->_vitesseActuelle = 0;
+        $this->_estDemarre = false;
+
     } 
 
-    public function getMarque()
+// On met en place les getters et setters
+
+    public function getMarque(): string
     {
         return $this->_marque;
     }
 
-    public function setMarque($marque)
+    public function setMarque($marque): void
     {
         $this->_marque = $marque;
     }
 
-    public function getModele()
+    public function getModele(): string
     {
         return $this->_modele;
     }
 
-    public function setModele($modele)
+    public function setModele($modele): void
     {
         $this->_modele = $modele;
     }
 
-    public function getNbPortes()
+    public function getNbPortes(): int
     {
         return $this->_nbPortes;
     }
 
-    public function setNbPortes($nbPortes)
+    public function setNbPortes($nbPortes): void
     {
         $this->_nbPortes = $nbPortes;
     }
 
-    public function getVitesseActuelle()
+    public function getPhraseVitesseActuelle(): string
     {
-        return $this->_vitesseActuelle;
+        return "La vitesse du véhicule ". $this->_marque ." ". $this->_modele ." est de : ".$this->_vitesseActuelle." km / h<br>";
+
     }
 
-    public function setVitesseActuelle($vitesseActuelle)
+    public function setVitesseActuelle($vitesseActuelle): void
     {
         $this->_vitesseActuelle = $vitesseActuelle;
     }
 
-    public function getNumeroVehicule()
+    public function getNumeroVehicule(): int
     {
         return $this->_numeroVehicule;
     }
 
-    public function setNumeroVehicule($numeroVehicule)
+    public function setNumeroVehicule($numeroVehicule): void
     {
         $this->_numeroVehicule = $numeroVehicule;
     }
 
+    public function getEstDemarre(): bool
+    {
+        return $this->_estDemarre;
+    }
+
+    public function setEstDemarre(bool $estDemarre): void
+    {
+        $this->_estDemarre = $estDemarre;
+    }
+
+
+    // La méthode magique qui nous permettra d'afficher les infos du véhicule
     public function __toString() 
     {
 
+        // Par défaut
+        $statutVehicule = "Le véhicule {$this->getMarque()} est demarré";
 
-        $infosVehicule = "Infos véhicule ".$this->_numeroVehicule."<br>"
+        // Si on rentre dans la condition
+        if ($this->_vitesseActuelle == 0)
+        {
+            $statutVehicule = "Le véhicule {$this->getMarque()} est à l'arrêt";
+        } 
+
+        // Version ternaire 
+        // $statutVehicule = $this->_vitesseActuelle == 0 ? "Le véhicule {$this->getMarque()} est à l'arrêt" : "Le véhicule {$this->getMarque()} est demarré";
+        
+        
+
+        $infosVehicule = "<br>Infos véhicule {$this->getNumeroVehicule()}<br>"
                         ."*****************************************<br>"
-                        ."Nom et modèle du véhicule :".$this->_marque." ".$this->_modele."<br>"
-                        ."Nombre de portes :".$this->_nbPortes."<br>"
-                        ."Le véhicule ".$this->_marque;
+                        ."Nom et modèle du véhicule :{$this->getMarque()} {$this->getModele()}<br>"
+                        ."Nombre de portes :{$this->getNbPortes()}<br>"
+                        .$statutVehicule."<br>"
+                        ."Sa vitesse actuelle est de : {$this->_vitesseActuelle} km / h<br>";
 
         return $infosVehicule;
 
@@ -120,14 +179,18 @@ class Voiture
 }
 
 $v1 = new Voiture("Peugeot","408",5);
+$v2 = new Voiture("Citroën","C4",3);
+
+$v1->demarrer();
+$v1->acceler(50);
+$v2->demarrer();
+$v2->stopper();
+$v2->acceler(20);
+echo $v1->getPhraseVitesseActuelle();
+echo $v2->getPhraseVitesseActuelle();
 
 echo $v1;
-
-
-
-
-
-
+echo $v2;
 
 
 ?>
