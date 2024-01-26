@@ -14,6 +14,7 @@ afficherInput($nomsInput);<br>
 
 <?php
 
+// On crée le tableau avec les valeurs à partir desquelles on va créer les champs du formulaire
 $nomsInput = 
 [
     "Nom",
@@ -21,13 +22,15 @@ $nomsInput =
     "Ville"
 ];
 
+// Début du code HTML
 $result = "<form action='' method='get' class='form-example'>";
 
+
+//Fonction qui va permettre d'afficher le formulaire
 function afficherInput($nomsInput)
 {
 
-  
-
+  // Boucle qui va nous permettre de parcourir les éléments du tableau et qui à chaque itération va enregistrer l'element du tableau dans la variable $nomFormulaire
     foreach ($nomsInput as $nomFormulaire)
     {
       
@@ -38,14 +41,16 @@ function afficherInput($nomsInput)
 
     }
 
+    // Fin du code HTML
     $result .= "</form>";
 
+    // Renvoie le formulaire HTML
     return $result;
 
 }
 
 
-
+// Affiche le formulaire
 echo afficherInput($nomsInput);
 
 

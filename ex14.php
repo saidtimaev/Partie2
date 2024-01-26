@@ -100,4 +100,6 @@ $ve1 = new VoitureElec("BMW","I3",100);
 
 echo $v1->getInfos()."<br/>";
 echo $ve1->getInfos()."<br/>";
+
+
 ?>
