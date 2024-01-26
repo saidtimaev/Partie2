@@ -16,6 +16,7 @@ genererCheckbox($elements);<br>
 
 <?php
 
+// On crée le tableau avec les valeurs à partir desquelles on va créer les cases à cocher
 $elements = 
 [
     "Choix 1" => "checked",
@@ -24,10 +25,12 @@ $elements =
 ];
 
 
+//Fonction qui va permettre d'afficher les cases à cocher
 function genererCheckbox($elements)
 {
     $result = "";
 
+    // Boucle qui va nous permettre de parcourir les éléments du tableau et qui à chaque itération va enregistrer l'element du tableau $coche associé à une clé $choix
     foreach($elements as $choix=>$coche)
     {
         $result .= '<input type="checkbox" id="scales" name="'.$choix.'"'.$coche.'/>
@@ -36,10 +39,12 @@ function genererCheckbox($elements)
 
    
 
+    // Renvoie le code HTML
     return $result;
 
 }
 
+// Affiche les cases à cocher
 echo genererCheckbox($elements);
 
 
