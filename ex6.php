@@ -16,6 +16,7 @@ alimenterListeDeroulante($elements);<br>
 
 <?php
 
+// On crée le tableau avec les valeurs à partir desquelles on va créer les champs de la liste déroulante
 $elements = 
 [
     "Monsieur",
@@ -24,18 +25,20 @@ $elements =
 ];
 
 
-
+//Fonction qui va permettre d'afficher la liste déroulante
 function alimenterListeDeroulante($elements)
 {
 
+    // Début du code HTML
     $result = "<select name='civilite' id='civilite-select'>";
 
-    
+    // Boucle qui va nous permettre de parcourir les éléments du tableau et qui à chaque itération va enregistrer l'element du tableau dans la variable $civilite
     foreach($elements as $civilite)
     {
         $result .= "<option value='".$civilite."'>".$civilite."</option>";
     }
 
+    // Fin du code HTML
     $result .= "</select>";
 
     return $result;
@@ -43,6 +46,7 @@ function alimenterListeDeroulante($elements)
 
 }
 
+// Affiche la liste déroulante
 echo alimenterListeDeroulante($elements);
 
 
