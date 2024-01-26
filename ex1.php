@@ -16,11 +16,12 @@ Vous devrez appeler la fonction comme suit : convertirMajRouge($texte) ;<br>
 
 
 
-
+// On crée la fonction qui va permettre de convertir notre texte en couleur rouge et en majuscules
 function convertirMajRouge($texte) 
 {
-    
-    return '<span style="color: red;">'.strtoupper($texte).'</span>';
+    // La fonction mb_strtoupper() permet de convertir notre texte en MAJUSCULES
+    // et <span style="color: red;> de convertir le texte en rouge
+    return '<span style="color: red;">'.mb_strtoupper($texte).'</span>';
     
 }
 
