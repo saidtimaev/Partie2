@@ -17,14 +17,18 @@ repeterImage($url,4);<br>
 
 <?php
 
+// Le lien de l'image qu'on doit afficher 5 fois
 $url = "https://my.mobirise.com/data/userpic/764.jpg";
 
 
+// Fonction qui va nous permettre d'afficher l'image 5 fois
 function repeterImage($url,$nombreRep)
 {
 
     $result="";
 
+
+    // Boucle qui va afficher l'élément 5 fois
     for ($i = 1; $i <= $nombreRep ; $i++) 
     
     {
@@ -39,7 +43,7 @@ function repeterImage($url,$nombreRep)
 
 }
 
-
+// Afficher l'image 5 fois
 echo repeterImage($url,4);
 
 
