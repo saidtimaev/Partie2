@@ -61,6 +61,7 @@ class Voiture
         // Early exit
         if ($this->_estDemarre == false)
         {
+            
             echo "Le véhicule ".$this->_marque." ".$this->_modele." veut accélérer de ".$acceleration."<br>";
             echo "Pour accélérer il faut démarrer le véhicule ".$this->_marque." ".$this->_modele." !<br>"; 
 
