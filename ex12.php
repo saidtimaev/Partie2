@@ -15,7 +15,7 @@ A l’aide d’une boucle, afficher les informations des variables contenues dan
 <?php 
 
 
-
+// Tableau duquel on veut afficher les informations des variables 
 $tableauValeurs=
 [
     true,
@@ -25,6 +25,8 @@ $tableauValeurs=
     array("valeur1","valeur2")
 ];
 
+
+    // Boucle qui va nous permettre de parcourir les éléments du tableau et qui à chaque itération va enregistrer l'element du tableau dans la variable $info
 
 foreach($tableauValeurs as $info)
 {
