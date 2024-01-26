@@ -75,12 +75,20 @@ class Voiture
         
     } 
 
-    // Fonction qui passer le statut de la voiture à arrêté et mettre sa vitesse à 0
+    // Fonction qui permet de passer le statut de la voiture à arrêté et mettre sa vitesse à 0
     public function stopper(): void
     {
         echo "Le véhicule ".$this->_marque." ".$this->_modele." est stoppé<br>";
         $this->_vitesseActuelle = 0;
         $this->_estDemarre = false;
+
+    } 
+
+    // Fonction qui permet de réduire la vitesse de la voiture
+    public function ralentir($vitesse): void
+    {
+        echo "Le véhicule ".$this->_marque." ".$this->_modele." a ralenti de : ".$vitesse."<br>";
+        $this->_vitesseActuelle -= $vitesse;
 
     } 
 
@@ -152,17 +160,17 @@ class Voiture
     public function __toString() 
     {
 
-        // Par défaut
-        $statutVehicule = "Le véhicule {$this->getMarque()} est demarré";
+        // // Par défaut
+        // $statutVehicule = "Le véhicule {$this->getMarque()} est demarré";
 
-        // Si on rentre dans la condition
-        if ($this->_vitesseActuelle == 0)
-        {
-            $statutVehicule = "Le véhicule {$this->getMarque()} est à l'arrêt";
-        } 
+        // // Si on rentre dans la condition
+        // if ($this->_vitesseActuelle == 0)
+        // {
+        //     $statutVehicule = "Le véhicule {$this->getMarque()} est à l'arrêt";
+        // } 
 
         // Version ternaire 
-        // $statutVehicule = $this->_vitesseActuelle == 0 ? "Le véhicule {$this->getMarque()} est à l'arrêt" : "Le véhicule {$this->getMarque()} est demarré";
+        $statutVehicule = $this->_vitesseActuelle == 0 ? "Le véhicule {$this->getMarque()} est à l'arrêt" : "Le véhicule {$this->getMarque()} est demarré";
         
         
 
@@ -183,6 +191,7 @@ $v2 = new Voiture("Citroën","C4",3);
 
 $v1->demarrer();
 $v1->acceler(50);
+$v1->ralentir(20);
 $v2->demarrer();
 $v2->stopper();
 $v2->acceler(20);
