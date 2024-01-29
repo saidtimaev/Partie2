@@ -59,11 +59,11 @@ class Voiture
     public function acceler(int $acceleration): void
     {
         // Early exit
-        if ($this->_estDemarre == false)
+        if (!$this->_estDemarre)
         {
             
-            echo "Le véhicule ".$this->_marque." ".$this->_modele." veut accélérer de ".$acceleration."<br>";
-            echo "Pour accélérer il faut démarrer le véhicule ".$this->_marque." ".$this->_modele." !<br>"; 
+            echo "Le véhicule $this veut accélérer de ".$acceleration."<br>";
+            echo "Pour accélérer il faut démarrer le véhicule $this !<br>"; 
 
             // Le return permet de sortir de la fonction
             return ;
@@ -157,8 +157,12 @@ class Voiture
     }
 
 
+    public function __toString() {
+        return "$this->_marque $this->_modele";
+    }
+
     // La méthode magique qui nous permettra d'afficher les infos du véhicule
-    public function __toString() 
+    public function afficherInfos() 
     {
 
         // // Par défaut
@@ -199,8 +203,8 @@ $v2->acceler(20);
 echo $v1->getPhraseVitesseActuelle();
 echo $v2->getPhraseVitesseActuelle();
 
-echo $v1;
-echo $v2;
+echo $v1->afficherInfos();
+echo $v2->afficherInfos();
 
 
 ?>
