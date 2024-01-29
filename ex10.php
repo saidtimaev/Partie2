@@ -18,39 +18,51 @@ de validation (submit).<br>
 
 <?php
 
-$elements = 
+$contacts = 
 [
-    "Nom" => "",
-    "Prénom" => "",
-    "Adresse" => "",
-    "Email" => "",
-    "Ville" => "",
-    "Sexe" => "",
-    "formations" => [
-                    "Dev"=>"Développeur Logiciel",
-                    "Designer"=>"Designer Web",
-                    "Integ"=>"Intégrateur",
-                    "Chef"=>"Chef de projet"
-                    ]
+    "Nom" ,
+    "Prénom",
+    "Adresse",
+    "Email",
+    "Ville",
 ];
 
-function afficherSexe()
-{
-    $result = '<div class="form-example">
-                    <label for="sexe">Sexe:</label><br>
-                    <input type="radio" id="homme" name="sexe" value="homme" required>
-                    <label for="homme">Homme</label><br>
-                    <input type="radio" id="femme" name="sexe" value="femme">
-                    <label for="femme">Femme</label><br>
-                </div><br>';
+$sexes =
+[
+    "Homme",
+    "Femme"
+];
+
+$formations =
+[
+"Dev"=>"Développeur Logiciel",
+"Designer"=>"Designer Web",
+"Integ"=>"Intégrateur",
+"Chef"=>"Chef de projet"
+];
+
+// Va permettre de créer la liste radio sexe
+function afficherSexe($tableauSexes)
+{   
+    $result =   '<div class="form-example">
+                <label for="sexe">Sexe :</label><br>';
+
+    foreach ($tableauSexes as $sexe)
+    {
+        $result .= "<input type='radio' id='$sexe' name='sexe' value='$sexe' required>
+                    <label for='$sexe'>$sexe</label><br>";
+    
+    }
+    $result .= '</div><br>';
 
     return $result;
 }
 
-function afficherFormations($formations)
+// Va permettre de créer les checkboxes pour les formations
+function afficherFormations($tableauFormations)
 {
     $result = '<div class="form-example"><p>Formations :</p>';
-    foreach ($formations as $formation => $intitule) {
+    foreach ($tableauFormations as $formation => $intitule) {
         $result .= '<div class="form-example">
                         <input type="checkbox" id="'.$formation.'" name="formation[]" value="'.$intitule.'"/>
                         <label for="'.$formation.'">'.$intitule.'</label><br><br>
@@ -60,38 +72,35 @@ function afficherFormations($formations)
     return $result;
 }
 
-// Fonction qui va créer un formulaire à partir d'élements récupérés d'un tableau
-function afficherFormulaire($elements)
+// Va permettre de créer les champs contacts du formulaire
+function afficherContact($tableauContacts)
+{
+    $result = "";
+
+    foreach ($tableauContacts as $champsContact)
+    {
+        $result .= "<div class='form-example'>
+                            <label for='".$champsContact."'>".ucfirst($champsContact).":"."</label><br>
+                            <input type='text' name='".$champsContact."' id='".$champsContact."' required />
+                        </div><br>";
+    }
+    return $result;
+
+}
+
+// Fonction qui va créer un formulaire à partir d'élements récupérés des 3 tableaux
+function afficherFormulaire($tableauContacts, $tableauSexes, $tableauFormations)
 {
 
+    // Début HTML
     $result = "<form action='' method='get' class='form-example'>";
 
-    // Pour chaque élément du tableau
-    foreach ($elements as $nomFormulaire => $valeurFormulaire)
-    {
+    // Affiche les résultats renvoyés par les return des fonctions
+    echo afficherContact($tableauContacts);
+    echo afficherSexe($tableauSexes);
+    echo afficherFormations($tableauFormations);
 
-        // Si l'élément est "sexe"
-        if ($nomFormulaire === "Sexe")
-        {
-            // Appel de la fonction pour afficher la liste radio
-            $result .= afficherSexe();
-        }
-        //Si le tableau contient un tableau
-        elseif (is_array($valeurFormulaire))
-        {
-            // Appel de la fonction pour afficher les cases à cocher des formations
-            $result .= afficherFormations($valeurFormulaire);
-        }
-        else
-        {
-            $result .= "<div class='form-example'>
-                            <label for='".$nomFormulaire."'>".ucfirst($nomFormulaire).":"."</label><br>
-                            <input type='text' name='".$nomFormulaire."' id='".$nomFormulaire."' required />
-                        </div><br>";
-        }
-
-    }
-
+    // Fin HTML
     $result .= "<div class='form-example'>
     <br><input type='submit' value='Valider' />
   </div>
@@ -101,10 +110,7 @@ function afficherFormulaire($elements)
 
 }
 
-
-
-echo afficherFormulaire($elements);
-
+echo afficherFormulaire($contacts, $sexes, $formations);
 
 
 ?>

@@ -34,7 +34,7 @@ class Voiture
     private static int $_nbVehicules = 1;
 
     //Fonction construct
-    function __construct(string $marque, string $modele, int $nbPortes, ) 
+    function __construct(string $marque, string $modele, int $nbPortes ) 
     {
         $this->_marque = $marque;
         $this->_modele = $modele;
@@ -50,7 +50,17 @@ class Voiture
     // Affiche aussi que la voiture a demarré
     public function demarrer()
     {
-        echo "Le véhicule ".$this->_marque." ".$this->_modele." démarre<br>";
+
+        if ($this->_estDemarre)
+        {
+            
+            echo "Le véhicule $this est déjà démarré<br>";
+
+            // Le return permet de sortir de la fonction
+            return ;
+        }
+
+        echo "Le véhicule $this démarre<br>";
         $this->_estDemarre = true;
     } 
 
@@ -71,7 +81,7 @@ class Voiture
 
         
         // Par défaut
-        echo "Le véhicule ".$this->_marque." ".$this->_modele." accélère de ".$acceleration."km / h<br>";
+        echo "Le véhicule $this accélère de ".$acceleration." km / h<br>";
         $this->_vitesseActuelle += $acceleration;
         
     } 
@@ -79,7 +89,17 @@ class Voiture
     // Fonction qui permet de passer le statut de la voiture à arrêté et mettre sa vitesse à 0
     public function stopper(): void
     {
-        echo "Le véhicule ".$this->_marque." ".$this->_modele." est stoppé<br>";
+        // Early exit
+        if (!$this->_estDemarre)
+        {
+            
+            echo "Le véhicule $this est déjà à l'arrêt<br>";
+
+            // Le return permet de sortir de la fonction
+            return ;
+        }
+
+        echo "Le véhicule $this est stoppé<br>";
         $this->_vitesseActuelle = 0;
         $this->_estDemarre = false;
 
@@ -88,7 +108,16 @@ class Voiture
     // Fonction qui permet de réduire la vitesse de la voiture
     public function ralentir($vitesse): void
     {
-        echo "Le véhicule ".$this->_marque." ".$this->_modele." a ralenti de : ".$vitesse."<br>";
+        if ($this->_vitesseActuelle < $vitesse)
+        {
+            
+            echo "Vous ne pouvez pas ralentir de $vitesse km / h !<br>";
+
+            // Le return permet de sortir de la fonction
+            return ;
+        }
+
+        echo "Le véhicule $this a ralenti de : ".$vitesse." km / h<br>";
         $this->_vitesseActuelle -= $vitesse;
 
     } 
@@ -127,7 +156,7 @@ class Voiture
 
     public function getPhraseVitesseActuelle(): string
     {
-        return "La vitesse du véhicule ". $this->_marque ." ". $this->_modele ." est de : ".$this->_vitesseActuelle." km / h<br>";
+        return "La vitesse du véhicule $this est de : ".$this->_vitesseActuelle." km / h<br>";
 
     }
 
@@ -181,7 +210,7 @@ class Voiture
 
         $infosVehicule = "<br>Infos véhicule {$this->getNumeroVehicule()}<br>"
                         ."*****************************************<br>"
-                        ."Nom et modèle du véhicule :{$this->getMarque()} {$this->getModele()}<br>"
+                        ."Nom et modèle du véhicule :$this<br>"
                         ."Nombre de portes :{$this->getNbPortes()}<br>"
                         .$statutVehicule."<br>"
                         ."Sa vitesse actuelle est de : {$this->_vitesseActuelle} km / h<br>";
@@ -195,10 +224,15 @@ $v1 = new Voiture("Peugeot","408",5);
 $v2 = new Voiture("Citroën","C4",3);
 
 $v1->demarrer();
+$v1->demarrer();
+
 $v1->acceler(50);
-$v1->ralentir(20);
+$v1->ralentir(10);
+$v1->ralentir(41);
 $v2->demarrer();
 $v2->stopper();
+$v2->stopper();
+
 $v2->acceler(20);
 echo $v1->getPhraseVitesseActuelle();
 echo $v2->getPhraseVitesseActuelle();
