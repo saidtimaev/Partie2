@@ -46,7 +46,7 @@ class Voiture
 
     }
 
-    // La fonction qui permettra va faire passer le statut de la voiture à demarré (true)
+    // La fonction qui permettra de faire passer le statut de la voiture à demarré (true)
     // Affiche aussi que la voiture a demarré
     public function demarrer()
     {
